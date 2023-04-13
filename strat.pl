@@ -31,7 +31,7 @@ race_time(Tire1, Laps1, Tire2, Laps2, Time) :-
 
 % Optimize the race strategy
 optimize_race_strategy(Tire1, Laps1, Tire2, Laps2, MinTime) :-
-    setof((Time, (Tire1, Laps1, Tire2, Laps2)), (
+    setof(Time - (Tire1, Laps1, Tire2, Laps2), (
         between(1, 5, Laps1),
         Laps2 is 6 - Laps1,
         member(Tire1, [soft, medium, hard]),
@@ -40,4 +40,4 @@ optimize_race_strategy(Tire1, Laps1, Tire2, Laps2, MinTime) :-
         race_time(Tire1, Laps1, Tire2, Laps2, Time)
     ), Strategies),
     keysort(Strategies, SortedStrategies),
-    SortedStrategies = [(MinTime, (Tire1, Laps1, Tire2, Laps2))|_].
+    SortedStrategies = [(MinTime - (Tire1, Laps1, Tire2, Laps2))|_].
